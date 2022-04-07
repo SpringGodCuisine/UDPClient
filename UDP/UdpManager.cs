@@ -34,14 +34,14 @@ public class UdpManager {
 	
 	}
 
-	void CreatUpd(){
+	private void CreatUpd(){
 		_udpClient = new UdpClient ();
 		Debug.Log("CreatUpd   "  + localPort);
-		IPEndPoint endpoint = new IPEndPoint(IPAddress.Parse("192.168.1.18"), 10011);
+		var endpoint = new IPEndPoint(IPAddress.Parse("192.168.1.18"), 10011);
 		_udpClient.Connect (endpoint);
-		IPEndPoint _localEnd = (IPEndPoint)_udpClient.Client.LocalEndPoint;
-		localPort = _localEnd.Port;
-		Debug.Log ("udp参数:" + _localEnd.Address + "," + _localEnd.Port);
+		var localEnd = (IPEndPoint)_udpClient.Client.LocalEndPoint;
+		localPort = localEnd.Port;
+		Debug.Log ("udp参数:" + localEnd.Address + "," + localEnd.Port);
 	}
 
 	public void Destory(){

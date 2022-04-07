@@ -4,23 +4,23 @@ using UnityEngine;
 
 public class Uclient : MonoBehaviour {
 
-	private MyUdp _upd;
+	private MyUdp upd;
 	// Use this for initialization
-	void Start () {
+	private void Start () {
 		StartClientUdp();
 	}
 
-	public void StartClientUdp()
+	private void StartClientUdp()
 	{
 		 
-		_upd = new MyUdp();
-		_upd.StartClientUdp("192.168.1.18");
-		string data = "aaaabbbbcccc";
+		upd = new MyUdp();
+		upd.StartClientUdp("192.168.1.18");
+		const string data = "aaaabbbbcccc";
 		 
-		byte[] message = System.Text.Encoding.UTF8.GetBytes(data);
-        for (int i =0; i<20;i++)
+		var message = System.Text.Encoding.UTF8.GetBytes(data);
+        for (var i =0; i<20;i++)
         {
-			_upd.SendMessage(message);
+			upd.SendMessage(message);
 		}
 
 	}

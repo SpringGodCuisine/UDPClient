@@ -37,20 +37,20 @@ public class MyTcp
 		//设定服务器IP地址  
 	    ac_connect = _result;
 		IPAddress ip;
-		bool _isRight = IPAddress.TryParse(_ip, out ip);
+		var isRight = IPAddress.TryParse(_ip, out ip);
 
-		if (!_isRight)
+		if (!isRight)
 		{
 			Debug.Log("无效地址......" + _ip);
 			_result(false);
 			return;
 		}
 		clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-		IPEndPoint _endpoint = new IPEndPoint(ip, 13001);
+		IPEndPoint endpoint = new IPEndPoint(ip, 13001);
 		Debug.Log("开始连接tcp~");
-		clientSocket.BeginConnect(_endpoint, requestConnectCallBack, clientSocket);
+		clientSocket.BeginConnect(endpoint, RequestConnectCallBack, clientSocket);
 	}
-	private void requestConnectCallBack(IAsyncResult iar)
+	private void RequestConnectCallBack(IAsyncResult iar)
 	{
 		try
 		{

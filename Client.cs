@@ -1,38 +1,34 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 
 public class Client : MonoBehaviour {
 
 	// Use this for initialization
-	void Start () {
-		string _ip = "192.168.1.18";
-		MyTcp.Instance.ConnectServer(_ip, (_result) => {
-			if (_result)
+	void Start ()
+	{
+		const string ip = "192.168.3.151";
+		MyTcp.Instance.ConnectServer(ip, (result) => {
+			if (result)
 			{
-				Debug.Log("连接成功"); 
+				Debug.Log("连接成功");
+				
+				const string data = "aaaabbbbcccc";
+				// var message = System.Text.Encoding.UTF8.GetBytes(data);
+				// //MyTcp.Instance.SendMessage(message);
+				// for (var i = 0; i < 100; i++)
+				// {
+				// 	MyTcp.Instance.SendMessage(message);
+				// }
 
-
-				string data = "aaaabbbbcccc";
-				//byte[] message = System.Text.Encoding.UTF8.GetBytes(data);
-				////MyTcp.Instance.SendMessage(message);
-				//for (int i = 0; i < 100; i++)
-				//{
-				//	MyTcp.Instance.SendMessage(message);
-				//}
-
-				byte[] packheadByte = BitConverter.GetBytes((short)data.Length);
-				byte[] message = System.Text.Encoding.UTF8.GetBytes(data);
-				List<byte> sendMessage = new List<byte>();
+				var packheadByte = BitConverter.GetBytes((short)data.Length);
+				var message = System.Text.Encoding.UTF8.GetBytes(data);
+				var sendMessage = new List<byte>();
 				////包头信息
 				sendMessage.AddRange(packheadByte);
 				sendMessage.AddRange(message);
-
-				 for (int i = 0; i < 100; i++)
-				 {
-					MyTcp.Instance.SendMessage(sendMessage.ToArray());
-				 }
+				
+				MyTcp.Instance.SendMessage(sendMessage.ToArray());
 
 
 				//byte[] packheadByte = BitConverter.GetBytes((short)data.Length);
@@ -52,7 +48,7 @@ public class Client : MonoBehaviour {
 			{
 				Debug.Log("连接失败"); 
 			}
-		}); 
+		});
 	}
 	void OnApplicationQuit()
 	{ 
